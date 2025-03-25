@@ -1,37 +1,41 @@
-#A poorly written example of a program in Python. It prompts the user for the number of elements to sum, takes those integers as input, and handles some basic error cases
+# Programa mejorado para sumar una lista de números enteros proporcionados por el usuario.
 
-MAX = 100
+MAX_ELEMENTS = 100
 
-def calculate_sum(arr):
-   result = 0
-   for num in arr:
-      result += num
-   return result
+def calculate_sum(numbers):
+    """Calcula la suma de una lista de números."""
+    return sum(numbers)
+
+def get_integer_input(prompt):
+    """Solicita al usuario un número entero y maneja errores de entrada."""
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Entrada inválida. Por favor, ingrese un número entero.")
 
 def main():
-   try:
-      n = int(input("Enter the number of elements (1-100): "))
-      if not 1 <= n <= MAX:
-            print("Invalid input. Please provide a digit ranging from 1 to 100.")
-            exit(1)
+    print("Programa para sumar números enteros.")
+    
+    # Solicitar el número de elementos
+    n = get_integer_input(f"Introduce el número de elementos (1-{MAX_ELEMENTS}): ")
+    if not 1 <= n <= MAX_ELEMENTS:
+        print(f"Entrada inválida. Por favor, ingrese un número entre 1 y {MAX_ELEMENTS}.")
+        return
 
-      arr = []
+    # Solicitar los números
+    numbers = []
+    print(f"Introduce {n} números enteros:")
+    for i in range(n):
+        num = get_integer_input(f"Número {i + 1}: ")
+        numbers.append(num)
 
-      print(f"Enter {n} integers:")
-      for _ in range(n):
-            try:
-               arr.append(int(input()))
-            except ValueError:
-               print("Invalid input. Please enter valid integers.")
-               exit(1)
-
-      total = calculate_sum(arr)
-
-      print("Sum of the numbers:", total)
-
-   except KeyboardInterrupt:
-      print("\nProgram terminated by user.")
-      exit(1)
+    # Calcular y mostrar la suma
+    total = calculate_sum(numbers)
+    print(f"La suma de los números es: {total}")
 
 if __name__ == "__main__":
-   main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nPrograma terminado por el usuario.")
